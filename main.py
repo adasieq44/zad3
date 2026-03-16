@@ -9,6 +9,13 @@ class Parameters(BaseModel):
     tenants_json_path: str = 'data/tenants.json'
     transfers_json_path: str = 'data/transfers.json'
     bills_json_path: str = 'data/bills.json'
+    
+    
+class Parameterss(BaseModel):
+    apartments_json_path: str = 'data/apartments.json'
+    tenants_json_path: str = 'data/tenants.json'
+    transfers_json_path: str = 'data/transfers.json'
+    bills_json_path: str = 'data/bills.json'
 
 
 class Room(BaseModel):
@@ -131,6 +138,12 @@ if __name__ == '__main__':
                 print('  ', bill.amount_pln, bill.date_due, bill.settlement_year, bill.settlement_month, bill.type)
 
     for tenant in manager.tenants.values():
+        print(tenant.name, tenant.apartment, tenant.room, tenant.rent_pln, tenant.deposit_pln, tenant.date_agreement_from, tenant.date_agreement_to)
+        for transfer in manager.transfers:
+            if transfer.tenant == tenant.name:
+                print('  ', transfer.amount_pln, transfer.date, transfer.settlement_year, transfer.settlement_month)
+                
+    for tenant in manager.tenants.values():                
         print(tenant.name, tenant.apartment, tenant.room, tenant.rent_pln, tenant.deposit_pln, tenant.date_agreement_from, tenant.date_agreement_to)
         for transfer in manager.transfers:
             if transfer.tenant == tenant.name:
